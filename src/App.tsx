@@ -20,7 +20,7 @@ function App() {
   const [user, setUser] = useState<AuthUser | null>(() => getInitialUser());
 
   const handleLogin = () => {
-    const userData = { id: "1", name: "robin" };
+    const userData = { id: 1, login: "robin" };
     window.localStorage.setItem(AUTH_USER, JSON.stringify(userData));
     setUser(userData);
   };
