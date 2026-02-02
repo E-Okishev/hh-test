@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import { AppRouter } from "./app/router/AppRouter";
-import { Header } from "./entities/Header/Header.tsx";
+import { Header } from "./entities/Header/header";
 import type { AuthUser } from "./shared/types/auth.ts";
 import { AUTH_USER } from "./shared/config/storageKeys.ts";
 
@@ -19,11 +19,10 @@ const getInitialUser = (): AuthUser | null => {
 function App() {
   const [user, setUser] = useState<AuthUser | null>(() => getInitialUser());
 
-  const handleLogin = () => {
-    const userData = { id: 1, login: "robin" };
-    window.localStorage.setItem(AUTH_USER, JSON.stringify(userData));
-    setUser(userData);
+  const onAuth = (authUser: AuthUser) => {
+    setUser(authUser);
   };
+
   const handleLogout = () => {
     window.localStorage.removeItem(AUTH_USER);
 
@@ -32,13 +31,9 @@ function App() {
 
   return (
     <>
-      {user ? (
-        <button onClick={handleLogout}>Sign Out</button>
-      ) : (
-        <button onClick={handleLogin}>Sign In</button>
-      )}
+      {user && <button onClick={handleLogout}>Sign Out</button>}
       <Header />
-      <AppRouter user={user} />
+      <AppRouter user={user} onAuth={onAuth} />
     </>
   );
 }

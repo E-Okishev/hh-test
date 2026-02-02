@@ -9,9 +9,10 @@ import { AuthPage } from "../../pages/Auth/AuthPage";
 
 export type HomeProps = {
   user: AuthUser | null;
+  onAuth: (authUser: AuthUser) => void;
 };
 
-export const AppRouter = ({ user }: HomeProps) => {
+export const AppRouter = ({ user, onAuth }: HomeProps) => {
   return (
     <Routes>
       <Route
@@ -24,7 +25,7 @@ export const AppRouter = ({ user }: HomeProps) => {
           )
         }
       />
-      <Route path={auth} element={<AuthPage />} />
+      <Route path={auth} element={<AuthPage onAuth={onAuth} />} />
       <Route element={<ProtectedRoute user={user} redirectPath={auth} />}>
         <Route path={tests} element={<TestsPage />} />
         <Route path={profile} element={<ProfilePage />} />
