@@ -4,6 +4,8 @@ import type { RestoreFormValues } from "../../shared/types/auth";
 import { restorePassword } from "../../features/auth/api/authApi";
 import { mapAuthError } from "../../features/auth/lib/mapAuthError";
 import { validateRestore } from "../../features/auth/lib/validation";
+import style from "./style.module.css";
+import { Button } from "../../entities/Components/Button/button";
 
 type FieldErrors = Partial<Record<keyof RestoreFormValues, string>>;
 type FormError = string | null;
@@ -59,12 +61,15 @@ export const RestoreForm = ({ onSuccess }: RestoreFormProps) => {
           </button>
         </div>
       ) : (
-        <form onSubmit={onSubmit}>
-          {formError && <div>{formError}</div>}
+        <form onSubmit={onSubmit} className={style.form}>
+          {formError && <div className={style.error}>{formError}</div>}
 
-          <div>
-            <label htmlFor="login">Логин</label>
+          <div className={style.inputBlock}>
+            <label className={style.label} htmlFor="login">
+              Логин
+            </label>
             <input
+              className={style.input}
               id="login"
               type="text"
               placeholder="Введите логин"
@@ -72,12 +77,17 @@ export const RestoreForm = ({ onSuccess }: RestoreFormProps) => {
               onChange={onChange("login")}
               autoComplete="username"
             />
-            {fieldErrors.login && <div>{fieldErrors.login}</div>}
+            {fieldErrors.login && (
+              <div className={style.error}>{fieldErrors.login}</div>
+            )}
           </div>
 
-          <div>
-            <label htmlFor="newPassword">Новый пароль</label>
+          <div className={style.inputBlock}>
+            <label className={style.label} htmlFor="newPassword">
+              Новый пароль
+            </label>
             <input
+              className={style.input}
               id="newPassword"
               type="password"
               placeholder="Придумайте новый пароль"
@@ -85,10 +95,14 @@ export const RestoreForm = ({ onSuccess }: RestoreFormProps) => {
               onChange={onChange("newPassword")}
               autoComplete="new-password"
             />
-            {fieldErrors.newPassword && <div>{fieldErrors.newPassword}</div>}
+            {fieldErrors.newPassword && (
+              <div className={style.error}>{fieldErrors.newPassword}</div>
+            )}
           </div>
 
-          <button type="submit">Восстановить пароль</button>
+          <Button type="login" buttonType="submit">
+            Восстановить пароль
+          </Button>
         </form>
       )}
     </>

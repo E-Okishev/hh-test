@@ -7,6 +7,8 @@ import type { AuthUser } from "../../shared/types/auth";
 import { useNavigate } from "react-router-dom";
 import { tests } from "../../shared/config/routes";
 import { validate } from "../../features/auth/lib/validation";
+import style from "./style.module.css";
+import { Button } from "../../entities/Components/Button/button";
 
 type FieldErrors = Partial<Record<keyof RegisterFormValues, string>>;
 type FormError = string | null;
@@ -55,12 +57,15 @@ export const RegisterForm = ({ onAuth }: RegisterFormProps) => {
 
   return (
     <>
-      <form onSubmit={onSubmit}>
-        {formError && <div>{formError}</div>}
+      <form onSubmit={onSubmit} className={style.form}>
+        {formError && <div className={style.error}>{formError}</div>}
 
-        <div>
-          <label htmlFor="login">Логин</label>
+        <div className={style.inputBlock}>
+          <label className={style.label} htmlFor="login">
+            Логин
+          </label>
           <input
+            className={style.input}
             id="login"
             type="text"
             placeholder="Придумайте логин"
@@ -68,12 +73,17 @@ export const RegisterForm = ({ onAuth }: RegisterFormProps) => {
             onChange={onChange("login")}
             autoComplete="username"
           />
-          {fieldErrors.login && <div>{fieldErrors.login}</div>}
+          {fieldErrors.login && (
+            <div className={style.error}>{fieldErrors.login}</div>
+          )}
         </div>
 
-        <div>
-          <label htmlFor="password">Пароль</label>
+        <div className={style.inputBlock}>
+          <label className={style.label} htmlFor="password">
+            Пароль
+          </label>
           <input
+            className={style.input}
             id="password"
             type="password"
             placeholder="Придумайте пароль"
@@ -81,10 +91,14 @@ export const RegisterForm = ({ onAuth }: RegisterFormProps) => {
             onChange={onChange("password")}
             autoComplete="new-password"
           />
-          {fieldErrors.password && <div>{fieldErrors.password}</div>}
+          {fieldErrors.password && (
+            <div className={style.error}>{fieldErrors.password}</div>
+          )}
         </div>
 
-        <button type="submit">Зарегистрироваться</button>
+        <Button type="login" buttonType="submit">
+          Зарегистрироваться
+        </Button>
       </form>
     </>
   );

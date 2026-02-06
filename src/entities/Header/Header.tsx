@@ -1,34 +1,41 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import styles from "./header.module.css";
+import { Button } from "../Components/Button/button";
+import { profile } from "../../shared/config/routes";
+import type { AuthUser } from "../../shared/types/auth";
 
-export const Header = () => {
+type HeaderProps = {
+  user: AuthUser | null;
+};
+
+export const Header = ({ user }: HeaderProps) => {
+  const navigate = useNavigate();
   return (
-    <header>
+    <header className={styles.header}>
+      <div className={styles.logo}>
+        <span className={styles.logoText}>Тесты с hh</span>
+      </div>
       <nav className={styles.nav}>
-        <NavLink
-          style={({ isActive }) =>
-            isActive ? { color: "red" } : { color: "blue" }
+        {/* <NavLink
+          className={({ isActive }) =>
+            [styles.navLink, isActive && styles.navLink_active].join(" ")
           }
           to="/auth"
         >
           Авторизация
-        </NavLink>
+        </NavLink> */}
         <NavLink
-          style={({ isActive }) =>
-            isActive ? { color: "red" } : { color: "blue" }
+          className={({ isActive }) =>
+            [styles.navLink, isActive && styles.navLink_active].join(" ")
           }
           to="/tests"
         >
           Тесты
         </NavLink>
-        <NavLink
-          style={({ isActive }) =>
-            isActive ? { color: "red" } : { color: "blue" }
-          }
-          to="/profile"
-        >
-          Профиль
-        </NavLink>
+
+        <Button type="profile" onClick={() => navigate(profile)}>
+          {user ? user.login : "Профиль"}
+        </Button>
       </nav>
     </header>
   );
