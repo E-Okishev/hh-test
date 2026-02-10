@@ -1,4 +1,9 @@
-export type Category = string;
+export type Category =
+  | "JavaScript"
+  | "HTML / CSS"
+  | "Git"
+  | "API"
+  | "Алгоритмы";
 
 export type Difficulty = "easy" | "medium" | "hard";
 
@@ -24,4 +29,12 @@ export type Answer = {
   questionId: number;
   text: string;
   isCorrect: boolean;
+};
+
+export type TestGroup = {
+  joinId: string;
+  title: string;
+  category: Category;
+  testIdByDifficulty: Partial<Record<Difficulty, number>>;
+  availableDifficulties: Difficulty[];
 };

@@ -4,7 +4,7 @@ export const tests: Test[] = [
   {
     id: 1,
     title: "API",
-    category: "Тесты по навыкам и языкам",
+    category: "API",
     joinId: "api-join-id",
     difficulty: "easy",
     questionIds: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
@@ -12,7 +12,7 @@ export const tests: Test[] = [
   {
     id: 2,
     title: "CSS",
-    category: "Тесты по фронтенду",
+    category: "HTML / CSS",
     joinId: "css-join-id",
     difficulty: "hard",
     questionIds: [11, 12, 13],
@@ -20,7 +20,7 @@ export const tests: Test[] = [
   {
     id: 3,
     title: "HTML",
-    category: "Тесты по фронтенду",
+    category: "HTML / CSS",
     joinId: "html-join-id",
     difficulty: "easy",
     questionIds: [14, 15, 16],
@@ -28,7 +28,7 @@ export const tests: Test[] = [
   {
     id: 4,
     title: "GIT",
-    category: "Тесты по навыкам и языкам",
+    category: "Git",
     joinId: "git-join-id",
     difficulty: "easy",
     questionIds: [17, 18, 19],
@@ -36,7 +36,7 @@ export const tests: Test[] = [
   {
     id: 6,
     title: "GIT",
-    category: "Тесты по навыкам и языкам",
+    category: "Git",
     joinId: "git-join-id",
     difficulty: "medium",
     questionIds: [20, 21, 22],
@@ -44,7 +44,7 @@ export const tests: Test[] = [
   {
     id: 5,
     title: "JavaScript",
-    category: "Тесты по фронтенду",
+    category: "JavaScript",
     joinId: "javascript-join-id",
     difficulty: "hard",
     questionIds: [23, 24, 25],
@@ -248,7 +248,7 @@ export const questions: Question[] = [
   // Вопросы по JavaScript (продвинутый уровень)
   {
     id: 25,
-    testId: 7,
+    testId: 5,
     text: "Что такое замыкание в JavaScript?",
     answerIds: [121, 122, 123, 124, 125],
     explanation:
@@ -256,7 +256,7 @@ export const questions: Question[] = [
   },
   {
     id: 26,
-    testId: 7,
+    testId: 5,
     text: "Что такое Promise в JavaScript?",
     answerIds: [126, 127, 128, 129, 130],
     explanation:
@@ -264,7 +264,7 @@ export const questions: Question[] = [
   },
   {
     id: 27,
-    testId: 7,
+    testId: 5,
     text: "Что такое async/await в JavaScript?",
     answerIds: [131, 132, 133, 134, 135],
     explanation:
