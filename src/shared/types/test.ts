@@ -1,6 +1,7 @@
 export type Category =
   | "JavaScript"
-  | "HTML / CSS"
+  | "CSS"
+  | "HTML"
   | "Git"
   | "API"
   | "Алгоритмы";

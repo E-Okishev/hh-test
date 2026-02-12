@@ -12,7 +12,7 @@ export const tests: Test[] = [
   {
     id: 2,
     title: "CSS",
-    category: "HTML / CSS",
+    category: "CSS",
     joinId: "css-join-id",
     difficulty: "hard",
     questionIds: [11, 12, 13],
@@ -20,7 +20,7 @@ export const tests: Test[] = [
   {
     id: 3,
     title: "HTML",
-    category: "HTML / CSS",
+    category: "HTML",
     joinId: "html-join-id",
     difficulty: "easy",
     questionIds: [14, 15, 16],
