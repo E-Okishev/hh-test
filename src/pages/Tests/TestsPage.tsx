@@ -1,31 +1,33 @@
 import { useMemo, useState } from "react";
-import type { Category, Difficulty, TestGroup } from "../../shared/types/test";
-import { useNavigate } from "react-router-dom";
+import type { Difficulty, TestGroup } from "../../shared/types/test";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { CategoryList } from "./CategoryList";
 import { TestGroupCard } from "./TestGroupCard";
 import { Button } from "../../entities/Components/Button/button";
 import {
   getCategories,
-  getTestGroupsByCategory,
+  getTestGroupsByCategorySlug,
 } from "../../features/tests/api/testsApi";
+import { tests } from "../../shared/config/routes";
 
 export const TestsPage = () => {
-  const [selectedCategory, setSelectedCategory] = useState<Category | null>(
-    null,
-  );
-  const [testGroups, setTestGroups] = useState<TestGroup[]>([]);
   const [selectedDifficultyByJoinId, setSelectedDifficultyByJoinId] = useState<
     Record<string, Difficulty>
   >({});
 
+  const { categorySlug } = useParams<{ categorySlug?: string }>();
+  const slug = categorySlug;
+
+  const testGroups = useMemo(() => {
+    return slug ? getTestGroupsByCategorySlug(slug) : [];
+  }, [slug]);
   const navigate = useNavigate();
 
   const categories = useMemo(() => getCategories(), []);
 
-  const handleSelectCategory = (category: Category) => {
-    setSelectedCategory(category);
-    setTestGroups(getTestGroupsByCategory(category));
+  const handleSelectCategory = (slug: string) => {
+    navigate(`/tests/${slug}`);
   };
 
   const handleDifficultyChange = (joinId: string, difficulty: Difficulty) => {
@@ -46,21 +48,22 @@ export const TestsPage = () => {
     const currentDifficulty = getCurrentDifficulty(testGroup);
     const testId = testGroup.testIdByDifficulty[currentDifficulty];
 
+    if (!slug) return;
     if (typeof testId !== "number") return;
 
-    navigate(`/test/${testId}`);
+    navigate(`/tests/${slug}/${testId}`);
   };
 
   return (
     <>
-      {selectedCategory === null ? (
+      {!slug ? (
         <CategoryList
           categories={categories}
           onSelectCategory={handleSelectCategory}
         />
       ) : (
         <>
-          <Button type="link" onClick={() => setSelectedCategory(null)}>
+          <Button type="link" onClick={() => navigate(tests)}>
             Назад
           </Button>
 

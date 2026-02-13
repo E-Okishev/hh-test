@@ -12,6 +12,7 @@ export type Test = {
   id: number;
   title: string;
   category: Category;
+  categorySlug: string;
   joinId: string;
   difficulty: Difficulty;
   questionIds: number[];

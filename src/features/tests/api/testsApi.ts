@@ -11,12 +11,21 @@ import type {
 
 const DIFFICULTY_ORDER: Difficulty[] = ["easy", "medium", "hard"];
 
-export const getCategories = (): Category[] => {
-  const categories = new Set<Category>();
-  tests.forEach((test) => {
-    categories.add(test.category);
-  });
-  return Array.from(categories);
+export type CategoryItem = {
+  title: string;
+  slug: string;
+};
+
+export const getCategories = (): CategoryItem[] => {
+  const bySlug = new Map<string, CategoryItem>();
+
+  for (const t of tests) {
+    if (!bySlug.has(t.categorySlug)) {
+      bySlug.set(t.categorySlug, { title: t.category, slug: t.categorySlug });
+    }
+  }
+
+  return Array.from(bySlug.values());
 };
 
 export const getTestsByCategory = (category: Category): Test[] => {
@@ -84,6 +93,24 @@ export const getTestGroupsByCategory = (category: Category): TestGroup[] => {
 
   for (const t of tests) {
     if (t.category !== category) continue;
+    if (seen.has(t.joinId)) continue;
+
+    seen.add(t.joinId);
+
+    const group = getTestGroup(t.joinId);
+    if (group) result.push(group);
+  }
+
+  return result;
+};
+
+export const getTestGroupsByCategorySlug = (slug: string): TestGroup[] => {
+  const filtredTests = tests.filter((test) => test.categorySlug === slug);
+
+  const seen = new Set<string>();
+  const result: TestGroup[] = [];
+
+  for (const t of filtredTests) {
     if (seen.has(t.joinId)) continue;
 
     seen.add(t.joinId);

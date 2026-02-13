@@ -1,11 +1,11 @@
 import { Title } from "../../entities/Components/Title";
-import type { Category } from "../../shared/types/test";
+import type { CategoryItem } from "../../features/tests/api/testsApi";
 
 import style from "./styles.module.css";
 
 type CategoryListProps = {
-  categories: Category[];
-  onSelectCategory: (category: Category) => void;
+  categories: CategoryItem[];
+  onSelectCategory: (categorySlug: string) => void;
 };
 
 export const CategoryList = ({
@@ -16,20 +16,18 @@ export const CategoryList = ({
     <>
       {categories.length === 0 && <p>Тесты еще не заполнены...</p>}
 
-      <>
-        <Title level={1}>Тесты по навыкам и языкам</Title>
-        <ul className={style.category}>
-          {categories.map((c) => (
-            <li
-              key={c}
-              className={style.categoryItem}
-              onClick={() => onSelectCategory(c)}
-            >
-              <Title level={2}>{c}</Title>
-            </li>
-          ))}
-        </ul>
-      </>
+      <Title level={1}>Тесты по навыкам и языкам</Title>
+      <ul className={style.category}>
+        {categories.map((c) => (
+          <li
+            key={c.slug}
+            className={style.categoryItem}
+            onClick={() => onSelectCategory(c.slug)}
+          >
+            <Title level={2}>{c.title}</Title>
+          </li>
+        ))}
+      </ul>
     </>
   );
 };
