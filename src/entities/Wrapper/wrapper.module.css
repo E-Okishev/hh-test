@@ -4,7 +4,6 @@
   padding: 0 24px;
   margin: 40px auto;
   flex: 1;
-  overflow: auto;
 
   @media (max-width: 900px) {
     width: 100%;

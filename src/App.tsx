@@ -26,7 +26,6 @@ function App() {
         margin: 0,
         display: "flex",
         flexDirection: "column",
-        height: "100vh",
       }}
     >
       <Header user={user} />
